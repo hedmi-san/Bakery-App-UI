@@ -1,3 +1,4 @@
+import '../mainWrapper.dart';
 import '../screens/bakerHome.dart';
 import '../screens/signup.dart';
 
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 
 class LoginInScreen extends StatelessWidget {
   const LoginInScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -90,7 +90,7 @@ class LoginInScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const BakerHomeScreen()));
+                                builder: (context) => MainWrapper()));
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),

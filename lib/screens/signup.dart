@@ -1,6 +1,7 @@
 import 'package:bakeryapp/screens/login.dart';
 import 'package:flutter/material.dart';
 
+import '../mainWrapper.dart';
 import '../widgets/textForm.dart';
 import 'bakerHome.dart';
 
@@ -89,7 +90,7 @@ class SignUpScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const BakerHomeScreen()));
+                              builder: (context) => MainWrapper()));
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
@@ -168,7 +169,7 @@ class _DriverSelectionButtonState extends State<DriverSelectionButton> {
           setState(() {
             buttonColor =
                 (buttonColor == const Color.fromRGBO(115, 115, 115, 1))
-                    ? const Color.fromRGBO(255, 255, 255, 1)
+                    ? const Color.fromRGBO(37, 37, 37, 1)
                     : const Color.fromRGBO(115, 115, 115, 1);
           });
         },

@@ -1,12 +1,17 @@
 // ignore: file_names
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class TextForm extends StatefulWidget {
   final String text;
   final String phrase;
 
-  const TextForm({Key? key, required this.text, required this.phrase})
-      : super(key: key);
+  const TextForm({
+    Key? key,
+    required this.text,
+    required this.phrase,
+  }) : super(key: key);
 
   @override
   _TextFormState createState() => _TextFormState();
