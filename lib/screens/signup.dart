@@ -1,13 +1,16 @@
 import 'package:bakeryapp/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../mainWrapper.dart';
-import '../widgets/textForm.dart';
-import 'bakerHome.dart';
+
+final name = TextEditingController();
+final phoneNumber = TextEditingController();
+final email = TextEditingController();
+final password = TextEditingController();
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
-
+  SignUpScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,87 +60,91 @@ class SignUpScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const TextForm(
-              text: 'Full name',
-              phrase: 'Enter your name',
-            ),
-            const TextForm(
-              text: 'Phone number',
-              phrase: 'Enter your phone number',
-            ),
-            const TextForm(
-              text: 'Email',
-              phrase: 'Enter your email',
-            ),
-            const TextForm(
-              text: 'Password',
-              phrase: 'Enter your password',
-            ),
+            const FullNameTextForm(),
+            const PhoneNumberTextForm(),
+            const EmailTextForm(),
+            const PasswordTextForm(),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 0.0,
-                        backgroundColor: const Color.fromRGBO(249, 180, 3, 1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainWrapper()));
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Sign up',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0.0,
-                      backgroundColor: Colors.white,
-                      side: const BorderSide(
-                        color: Color.fromRGBO(249, 180, 3, 1),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginInScreen()));
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('Login',
-                          style: TextStyle(
-                            color: Color.fromRGBO(249, 180, 3, 1),
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                  ),
-                ),
+                SignUpButton(),
+                LogInButton(),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class LogInButton extends StatelessWidget {
+  const LogInButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 12),
+      width: MediaQuery.of(context).size.width * 0.6,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          side: const BorderSide(
+            color: Color.fromRGBO(249, 180, 3, 1),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: () {
+          Get.off(const LoginInScreen());
+        },
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text('Login',
+              style: TextStyle(
+                color: Color.fromRGBO(249, 180, 3, 1),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+      ),
+    );
+  }
+}
+
+class SignUpButton extends StatelessWidget {
+  const SignUpButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 12),
+      width: MediaQuery.of(context).size.width * 0.6,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            elevation: 0.0,
+            backgroundColor: const Color.fromRGBO(249, 180, 3, 1),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
+        onPressed: () {
+          Get.off(const MainWrapper());
+        },
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'Sign up',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );
@@ -229,6 +236,196 @@ class _BakerSelectionButtonState extends State<BakerSelectionButton> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class FullNameTextForm extends StatefulWidget {
+  const FullNameTextForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _FullNameTextFormState createState() => _FullNameTextFormState();
+}
+
+class _FullNameTextFormState extends State<FullNameTextForm> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: Text(
+            'Full name',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: TextField(
+            controller: name,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Enter your name',
+              hintStyle: TextStyle(
+                color: Color.fromRGBO(115, 115, 115, 1),
+                fontSize: 18,
+                fontWeight: FontWeight.w100,
+              ),
+              filled: true,
+              fillColor: Color.fromRGBO(249, 180, 3, 0.13),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class EmailTextForm extends StatefulWidget {
+  const EmailTextForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _EmailTextFormState createState() => _EmailTextFormState();
+}
+
+class _EmailTextFormState extends State<EmailTextForm> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: Text(
+            'Email',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: TextField(
+            controller: email,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Enter your email',
+              hintStyle: TextStyle(
+                color: Color.fromRGBO(115, 115, 115, 1),
+                fontSize: 18,
+                fontWeight: FontWeight.w100,
+              ),
+              filled: true,
+              fillColor: Color.fromRGBO(249, 180, 3, 0.13),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PasswordTextForm extends StatefulWidget {
+  const PasswordTextForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _PasswordTextFormState createState() => _PasswordTextFormState();
+}
+
+class _PasswordTextFormState extends State<PasswordTextForm> {
+  bool obscureText = true;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: Text(
+            'Password',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: TextField(
+            controller: password,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Enter your password',
+              hintStyle: const TextStyle(
+                color: Color.fromRGBO(115, 115, 115, 1),
+                fontSize: 18,
+                fontWeight: FontWeight.w100,
+              ),
+              filled: true,
+              fillColor: const Color.fromRGBO(249, 180, 3, 0.13),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  obscureText ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PhoneNumberTextForm extends StatefulWidget {
+  const PhoneNumberTextForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _PhoneNumberTextFormState createState() => _PhoneNumberTextFormState();
+}
+
+class _PhoneNumberTextFormState extends State<PhoneNumberTextForm> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: Text(
+            'Phone number',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: TextField(
+            controller: phoneNumber,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Enter your phone number',
+              hintStyle: TextStyle(
+                color: Color.fromRGBO(115, 115, 115, 1),
+                fontSize: 18,
+                fontWeight: FontWeight.w100,
+              ),
+              filled: true,
+              fillColor: Color.fromRGBO(249, 180, 3, 0.13),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
