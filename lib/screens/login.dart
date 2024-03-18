@@ -105,7 +105,7 @@ class LogInButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
         onPressed: () {
-          Get.off(const MainWrapper());
+          Get.off(() => const MainWrapper());
         },
         child: const Padding(
           padding: EdgeInsets.all(8.0),
@@ -144,7 +144,7 @@ class SignUpButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Get.off(SignUpScreen());
+          Get.off(() => const SignUpScreen());
         },
         child: const Padding(
           padding: EdgeInsets.all(8.0),

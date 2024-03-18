@@ -1,7 +1,6 @@
 import 'package:bakeryapp/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../mainWrapper.dart';
 
 final name = TextEditingController();
@@ -10,7 +9,7 @@ final email = TextEditingController();
 final password = TextEditingController();
 
 class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +100,7 @@ class LogInButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Get.off(const LoginInScreen());
+          Get.off(() => const LoginInScreen());
         },
         child: const Padding(
           padding: EdgeInsets.all(8.0),

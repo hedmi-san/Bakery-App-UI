@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import './screens/bakerHome.dart';
 import './screens/bakerShop.dart';
 import './screens/bakerProfile.dart';
@@ -40,29 +39,75 @@ class _MainWrapperState extends State<MainWrapper> {
   }
 }
 
-class MyBottomNavBar extends StatelessWidget {
-  void Function(int)? onTapChange;
-  MyBottomNavBar({super.key, required this.onTapChange});
+class MyBottomNavBar extends StatefulWidget {
+  final void Function(int)? onTapChange;
+
+  const MyBottomNavBar({Key? key, required this.onTapChange}) : super(key: key);
+
+  @override
+  _MyBottomNavBarState createState() => _MyBottomNavBarState();
+}
+
+class _MyBottomNavBarState extends State<MyBottomNavBar> {
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 15),
-      child: GNav(
-        onTabChange: (value) => onTapChange!(value),
-        color: Colors.grey.shade400,
-        activeColor: const Color.fromRGBO(255, 200, 58, 1),
-        backgroundColor: const Color.fromRGBO(37, 37, 37, 1),
-        mainAxisAlignment: MainAxisAlignment.center,
-        tabs: const [
-          GButton(
-            icon: Icons.notifications_outlined,
+      height: MediaQuery.of(context).size.height * 0.08,
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 18),
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(37, 37, 37, 1),
+        borderRadius: BorderRadius.all(
+          Radius.circular(24),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(37, 37, 37, 0.3),
+            offset: Offset(0, 20),
+            blurRadius: 20,
           ),
-          GButton(
-            icon: Icons.storefront_outlined,
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _selectedIndex = 0;
+              });
+              widget.onTapChange?.call(0);
+            },
+            icon: Icon(
+              Icons.notifications_outlined,
+              color: _selectedIndex == 0 ? Colors.yellow : Colors.grey.shade400,
+            ),
           ),
-          GButton(
-            icon: Icons.person_outline,
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _selectedIndex = 1;
+              });
+              widget.onTapChange?.call(1);
+            },
+            icon: Icon(
+              Icons.storefront_outlined,
+              color: _selectedIndex == 1 ? Colors.yellow : Colors.grey.shade400,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _selectedIndex = 2;
+              });
+              widget.onTapChange?.call(2);
+            },
+            icon: Icon(
+              Icons.person_outline,
+              color: _selectedIndex == 2 ? Colors.yellow : Colors.grey.shade400,
+            ),
           ),
         ],
       ),

@@ -2,6 +2,7 @@
 
 import 'package:bakeryapp/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SpalshScreen extends StatefulWidget {
   const SpalshScreen({super.key});
@@ -18,12 +19,11 @@ class _SpalshScreenState extends State<SpalshScreen> {
   }
 
   /// this function to check if the user is already loged or not
-  /// i didn't complete it  cause in the time i wrote this code ther was no data base
+  /// i didn't complete it  cause in the time i wrote this code there was no data base
   /// nor authentification so it's up to the backend developer to do it
   _navigatetohome() async {
     await Future.delayed(const Duration(milliseconds: 1500), () {});
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const LoginInScreen()));
+    Get.off(const LoginInScreen());
   }
 
   @override
