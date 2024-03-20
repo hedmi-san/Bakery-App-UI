@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, file_names, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import './screens/bakerHome.dart';
@@ -53,64 +53,74 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.08,
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 18),
-      decoration: const BoxDecoration(
-        color: Color.fromRGBO(37, 37, 37, 1),
-        borderRadius: BorderRadius.all(
-          Radius.circular(24),
+    return Stack(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height * 0.08,
+          padding: const EdgeInsets.all(12),
+          margin: const EdgeInsets.symmetric(horizontal: 55, vertical: 18),
+          decoration: const BoxDecoration(
+            color: Color.fromRGBO(37, 37, 37, 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(24),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(37, 37, 37, 0.3),
+                offset: Offset(0, 20),
+                blurRadius: 20,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                  widget.onTapChange?.call(0);
+                },
+                icon: Icon(
+                  Icons.notifications_outlined,
+                  color: _selectedIndex == 0
+                      ? Colors.yellow
+                      : Colors.grey.shade400,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 1;
+                  });
+                  widget.onTapChange?.call(1);
+                },
+                icon: Icon(
+                  Icons.storefront_outlined,
+                  color: _selectedIndex == 1
+                      ? Colors.yellow
+                      : Colors.grey.shade400,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                  widget.onTapChange?.call(2);
+                },
+                icon: Icon(
+                  Icons.person_outline,
+                  color: _selectedIndex == 2
+                      ? Colors.yellow
+                      : Colors.grey.shade400,
+                ),
+              ),
+            ],
+          ),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(37, 37, 37, 0.3),
-            offset: Offset(0, 20),
-            blurRadius: 20,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _selectedIndex = 0;
-              });
-              widget.onTapChange?.call(0);
-            },
-            icon: Icon(
-              Icons.notifications_outlined,
-              color: _selectedIndex == 0 ? Colors.yellow : Colors.grey.shade400,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _selectedIndex = 1;
-              });
-              widget.onTapChange?.call(1);
-            },
-            icon: Icon(
-              Icons.storefront_outlined,
-              color: _selectedIndex == 1 ? Colors.yellow : Colors.grey.shade400,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _selectedIndex = 2;
-              });
-              widget.onTapChange?.call(2);
-            },
-            icon: Icon(
-              Icons.person_outline,
-              color: _selectedIndex == 2 ? Colors.yellow : Colors.grey.shade400,
-            ),
-          ),
-        ],
-      ),
+      ],
     );
   }
 }
