@@ -7,9 +7,31 @@ final name = TextEditingController();
 final phoneNumber = TextEditingController();
 final email = TextEditingController();
 final password = TextEditingController();
+bool isdriver = false;
+bool isbaker = false;
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  String? _selectedRole; // Add a state variable to store the selected role
+
+  void _handleRoleSelection(String role) {
+    setState(() {
+      _selectedRole = role; // Update the selected role
+    });
+  }
+
+  void _submitSignUp() {
+    // Implement the sign-up logic here
+    // You can navigate to a new screen or send the selected role to the backend
+    print('Sign-up submitted with role: $_selectedRole');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +71,17 @@ class SignUpScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const BakerSelectionButton(),
+                      BakerSelectionButton(
+                        onPressed: () => _handleRoleSelection('Baker'),
+                        isSelected: _selectedRole == 'Baker',
+                      ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
-                      const DriverSelectionButton(),
+                      DriverSelectionButton(
+                        onPressed: () => _handleRoleSelection('Driver'),
+                        isSelected: _selectedRole == 'Driver',
+                      ),
                     ],
                   )
                 ],
@@ -150,40 +178,42 @@ class SignUpButton extends StatelessWidget {
   }
 }
 
-class DriverSelectionButton extends StatefulWidget {
-  const DriverSelectionButton({
-    super.key,
-  });
+class BakerSelectionButton extends StatefulWidget {
+  final VoidCallback onPressed;
+  final bool isSelected;
+
+  const BakerSelectionButton({
+    Key? key,
+    required this.onPressed,
+    required this.isSelected,
+  }) : super(key: key);
 
   @override
-  State<DriverSelectionButton> createState() => _DriverSelectionButtonState();
+  State<BakerSelectionButton> createState() => _BakerSelectionButtonState();
 }
 
-class _DriverSelectionButtonState extends State<DriverSelectionButton> {
-  Color buttonColor = const Color.fromRGBO(115, 115, 115, 1);
+class _BakerSelectionButtonState extends State<BakerSelectionButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.3,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            elevation: 0.0,
-            backgroundColor: buttonColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10))),
-        onPressed: () {
-          setState(() {
-            buttonColor =
-                (buttonColor == const Color.fromRGBO(115, 115, 115, 1))
-                    ? const Color.fromRGBO(37, 37, 37, 1)
-                    : const Color.fromRGBO(115, 115, 115, 1);
-          });
-        },
+          elevation: 0.0,
+          backgroundColor: widget.isSelected
+              ? const Color.fromRGBO(249, 180, 3, 1)
+              : const Color.fromRGBO(254, 245, 222, 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: widget.onPressed,
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
           child: Text(
-            'Driver',
+            'Baker',
             style: TextStyle(
+              color: Color.fromRGBO(37, 37, 37, 1),
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -194,41 +224,41 @@ class _DriverSelectionButtonState extends State<DriverSelectionButton> {
   }
 }
 
-class BakerSelectionButton extends StatefulWidget {
-  const BakerSelectionButton({
-    super.key,
-  });
+class DriverSelectionButton extends StatefulWidget {
+  final VoidCallback onPressed;
+  final bool isSelected;
+
+  const DriverSelectionButton({
+    Key? key,
+    required this.onPressed,
+    required this.isSelected,
+  }) : super(key: key);
 
   @override
-  State<BakerSelectionButton> createState() => _BakerSelectionButtonState();
+  State<DriverSelectionButton> createState() => _DriverSelectionButtonState();
 }
 
-class _BakerSelectionButtonState extends State<BakerSelectionButton> {
-  Color buttonColor = const Color.fromRGBO(254, 245, 222, 1);
+class _DriverSelectionButtonState extends State<DriverSelectionButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.3,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            elevation: 0.0,
-            backgroundColor: buttonColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10))),
-        onPressed: () {
-          setState(() {
-            buttonColor =
-                (buttonColor == const Color.fromRGBO(254, 245, 222, 1))
-                    ? const Color.fromRGBO(249, 180, 3, 1)
-                    : const Color.fromRGBO(254, 245, 222, 1);
-          });
-        },
+          elevation: 0.0,
+          backgroundColor: widget.isSelected
+              ? const Color.fromRGBO(37, 37, 37, 1)
+              : const Color.fromRGBO(115, 115, 115, 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: widget.onPressed,
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
           child: Text(
-            'Baker',
+            'Driver',
             style: TextStyle(
-              color: Color.fromRGBO(37, 37, 37, 1),
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
