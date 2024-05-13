@@ -14,17 +14,11 @@ class BakerHomeScreen extends StatefulWidget {
 class _BakerHomeScreenState extends State<BakerHomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  Color appColor = const Color.fromRGBO(255, 244, 217, 1);
+
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
-    tabController.addListener(() {
-      setState(() {
-        appColor = tabController.index == 0
-            ? const Color.fromRGBO(255, 244, 217, 1)
-            : Colors.white;
-      });
-    });
+
     super.initState();
   }
 
@@ -37,7 +31,7 @@ class _BakerHomeScreenState extends State<BakerHomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: const Image(
           image: AssetImage('assets/images/breadbrown.png'),
